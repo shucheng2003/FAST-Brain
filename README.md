@@ -25,11 +25,6 @@ python -m fast_brain.run --dataset rnn
 python -m fast_brain.run --dataset sddes
 ```
 
-| Dataset | Regions | Time points | Training epochs | Seed |
-| --- | ---: | ---: | ---: | ---: |
-| RNN | 20 | 8,000 | 150 | 7 |
-| SDDEs | 66 | 3,000 | 180 | 37 |
-
 Each run trains one model and evaluates ten generations with the fitted weights. The dataset configurations specify the model, training, and evaluation parameters. [RNN configuration](configs/rnn.yaml) · [SDDEs configuration](configs/sddes.yaml)
 
 ## Outputs
