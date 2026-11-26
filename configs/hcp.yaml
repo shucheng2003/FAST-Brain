@@ -1,0 +1,64 @@
+dataset: hcp
+seed: 8
+roi_count: 360
+history_len: 10
+pred_len: 24
+train_fraction: 0.8
+data:
+  sessions:
+    - path: data/hcp/rest1_lr.txt
+      format: txt
+    - path: data/hcp/rest1_rl.txt
+      format: txt
+    - path: data/hcp/rest2_lr.txt
+      format: txt
+    - path: data/hcp/rest2_rl.txt
+      format: txt
+  drop_first: 30
+  matrices:
+    - name: sc
+      path: data/hcp/sc.csv
+      format: csv
+      transform: normalize
+    - name: length
+      path: data/hcp/length.csv
+      format: csv
+      transform: inverse_normalize
+    - name: network
+      path: data/hcp/network.csv
+      format: csv
+      transform: normalize
+    - name: number
+      path: data/hcp/number.csv
+      format: csv
+      transform: normalize
+model:
+  use_rope: false
+  d_model: 256
+  n_heads: 8
+  n_layers: 2
+  d_ff: 1024
+  dropout: 0.1
+  gcn_hidden: 128
+  gcn_order: 2
+  euler_steps: 20
+  denom_clamp: 0.05
+training:
+  epochs: 300
+  batch_size: 24
+  lr: 0.00004
+  weight_decay: 0.00025
+  mu_t: 0.2
+  sigma_t: 0.8
+  shuffle: false
+  scheduler: true
+  grad_clip: false
+  eta_min: 0.000001
+evaluation:
+  num_runs: 10
+  pred_steps: 500
+  ci_bootstrap: 1000
+  ci_level: 0.95
+  ec_samples: 0
+  conditional_samples: 20
+  conditional_blocks: 0

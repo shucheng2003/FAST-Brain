@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fast-brain"
+version = "0.3.0"
+description = "FAST-Brain experiments for modeling resting-state fMRI"
+readme = "README.md"
+authors = [
+  {name = "Shucheng Liu"},
+  {name = "Chengchun Shi"},
+  {name = "Kai Zhang"},
+  {name = "Hongtu Zhu"},
+]
+license-files = ["third_party/*-LICENSE.txt"]
+requires-python = ">=3.10"
+dependencies = [
+  "numpy",
+  "pandas",
+  "PyYAML",
+  "scipy",
+  "scikit-learn",
+  "torch>=2.0"
+]
+
+[project.urls]
+Repository = "https://github.com/shucheng2003/FAST-Brain"
+Paper = "https://arxiv.org/abs/2609.34354"
+
+[tool.setuptools]
+packages = ["fast_brain", "fast_brain.assets.configs", "fast_brain.assets.data"]
+include-package-data = false
+
+[tool.setuptools.package-dir]
+fast_brain = "src/fast_brain"
+"fast_brain.assets.configs" = "configs"
+"fast_brain.assets.data" = "data"
+
+[tool.setuptools.package-data]
+"fast_brain.assets.configs" = ["*.yaml"]
+"fast_brain.assets.data" = ["rnn/*.csv", "rnn/*.txt", "sddes/*.csv"]

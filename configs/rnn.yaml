@@ -1,0 +1,58 @@
+dataset: rnn
+seed: 7
+roi_count: 20
+history_len: 60
+pred_len: 24
+train_fraction: 0.8
+data:
+  signals:
+    path: data/rnn/dynamics_020nodes_8000steps_00seed.txt
+    format: txt
+  real_ec:
+    path: data/rnn/real_EC_020nodes_8000steps_00seed.txt
+    format: txt
+  matrices:
+    - name: sc
+      path: data/rnn/SC_matrix.csv
+      format: csv
+      transform: normalize
+    - name: length
+      path: data/rnn/Length_matrix.csv
+      format: csv
+      transform: inverse_normalize
+    - name: network
+      path: data/rnn/Network_matrix.csv
+      format: csv
+      transform: normalize
+model:
+  use_rope: true
+  d_model: 512
+  n_heads: 8
+  n_layers: 2
+  d_ff: 2048
+  dropout: 0.1
+  gcn_hidden: 256
+  gcn_order: 2
+  euler_steps: 50
+  denom_clamp: 0.01
+training:
+  epochs: 150
+  batch_size: 128
+  lr: 0.0003
+  weight_decay: 0.00001
+  mu_t: 0.0
+  sigma_t: 1.0
+  shuffle: false
+  scheduler: true
+  grad_clip: true
+  eta_min: 0.000001
+evaluation:
+  num_runs: 10
+  pred_steps: 1200
+  ci_bootstrap: 1000
+  ci_level: 0.95
+  ec_samples: 512
+  ec_sparsity_percentile: 75
+  ec_sc_threshold: 0.05
+  conditional_samples: 100
+  conditional_blocks: 50
